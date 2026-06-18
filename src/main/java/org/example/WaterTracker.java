@@ -78,14 +78,18 @@ public class WaterTracker extends Application {
 
         Scene scene = new Scene(layout, 400, 300);
         try {
-            java.net.URL styleSheet = getClass().getResource("style.css");
+            // Versuche erst den absoluten Pfad (Standard für Maven/Resources)
+            java.net.URL styleSheet = getClass().getResource("/org/example/style.css");
+            
+            // Fallback: Versuche es relativ zur Klasse
             if (styleSheet == null) {
-                styleSheet = getClass().getResource("/org/example/style.css");
+                styleSheet = getClass().getResource("style.css");
             }
+
             if (styleSheet != null) {
                 scene.getStylesheets().add(styleSheet.toExternalForm());
             } else {
-                System.err.println("Warning: style.css not found!");
+                System.err.println("Warning: style.css not found! Checked /org/example/style.css and relative path.");
             }
         } catch (Exception e) {
             System.err.println("Error loading style.css: " + e.getMessage());
