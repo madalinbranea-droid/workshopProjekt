@@ -10,6 +10,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class WaterTracker extends Application {
 
@@ -19,6 +21,7 @@ public class WaterTracker extends Application {
     Label status;
     ProgressBar bar;
     TextField goalInput;
+    Label dateLabel;
 
     @Override
     public void start(Stage stage) {
@@ -32,6 +35,12 @@ public class WaterTracker extends Application {
         goalInput.setPromptText("ml");
         goalInput.setText(dailyGoal + "");
         goalInput.setPrefWidth(100);
+
+        dateLabel = new Label();
+
+        dateLabel.setText(
+                "Heute: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        );
 
         Button saveGoal = new Button("Setzen");
         saveGoal.getStyleClass().add("button");
@@ -86,6 +95,7 @@ public class WaterTracker extends Application {
 
         VBox layout = new VBox(20);
         layout.getChildren().addAll(
+                dateLabel,
                 title,
                 goalBox,
                 new Separator(),
