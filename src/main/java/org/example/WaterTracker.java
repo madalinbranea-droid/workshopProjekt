@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import javafx.scene.control.Alert;
 
 public class WaterTracker extends Application {
 
@@ -23,6 +23,7 @@ public class WaterTracker extends Application {
 
         goalInput = new TextField();
         goalInput.setPromptText("Ziel in ml");
+        goalInput.setText(dailyGoal + "");
 
         Button saveGoal = new Button("Ziel setzen");
         Button addWater = new Button("+250 ml");
@@ -56,6 +57,8 @@ public class WaterTracker extends Application {
             }
 
             updateUI();
+            checkGoalReached();
+
         });
 
         VBox layout = new VBox(15);
@@ -87,6 +90,17 @@ public class WaterTracker extends Application {
         status.setText(
                 "Getrunken: " + currentWater + " ml\nNoch: " + rest + " ml"
         );
+    }
+
+    private void checkGoalReached() {
+        if (currentWater >= dailyGoal) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Ziel erreicht 🎉");
+            alert.setHeaderText(null);
+            alert.setContentText("Glückwunsch! Du hast dein Tagesziel erreicht.");
+
+            alert.showAndWait();
+        }
     }
 
     public static void main(String[] args) {
