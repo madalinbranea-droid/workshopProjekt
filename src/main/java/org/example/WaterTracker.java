@@ -20,6 +20,7 @@ public class WaterTracker extends Application {
     @Override
     public void start(Stage stage) {
         Label title = new Label("Wasser Tracker 🚰");
+        title.getStyleClass().add("title");
 
         goalInput = new TextField();
         goalInput.setPromptText("Ziel in ml");
@@ -73,6 +74,19 @@ public class WaterTracker extends Application {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 400, 300);
+        try {
+            java.net.URL styleSheet = getClass().getResource("style.css");
+            if (styleSheet == null) {
+                styleSheet = getClass().getResource("/org/example/style.css");
+            }
+            if (styleSheet != null) {
+                scene.getStylesheets().add(styleSheet.toExternalForm());
+            } else {
+                System.err.println("Warning: style.css not found!");
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading style.css: " + e.getMessage());
+        }
 
         stage.setScene(scene);
         stage.setTitle("Wasser Tracker");
