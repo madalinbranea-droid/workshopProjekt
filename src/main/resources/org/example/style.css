@@ -1,7 +1,6 @@
 .root {
-    -fx-background-color: linear-gradient(to bottom right, #ffffff, #e3f2fd);
-    -fx-padding: 30;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #ffffff, #e3f2fd);
+  -fx-padding: 30;
 }
 
 .label {
@@ -73,12 +72,13 @@
     -fx-pref-height: 20;
 }
 
-.progress-bar .track {
-    -fx-background-color: #e1f5fe;
-    -fx-background-radius: 10;
+.progress-bar .bar {
+  -fx-background-color: linear-gradient(to right, #4fc3f7, #2196f3, #1976d2);
+  -fx-background-radius: 10;
 }
 
-.progress-bar .bar {
-    -fx-background-color: linear-gradient(to right, #4fc3f7, #2196f3);
-    -fx-background-radius: 10;
+.progress-bar .track {
+  -fx-background-color: #e1f5fe;
+  -fx-background-radius: 10;
+  -fx-padding: 0; /* Remove padding */
 }

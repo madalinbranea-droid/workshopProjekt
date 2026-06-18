@@ -1,5 +1,6 @@
 package org.example;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javafx.util.Duration;
 
 public class WaterTracker extends Application {
 
@@ -81,19 +83,23 @@ public class WaterTracker extends Application {
             }
         });
 
-        addWater.setOnAction(e -> {
-            currentWater += 250;
+      addWater.setOnAction(e -> {
+        currentWater += 250;
+        if (currentWater > dailyGoal) {
+          currentWater = dailyGoal;
+        }
 
-            if (currentWater > dailyGoal) {
-                currentWater = dailyGoal;
-            }
+        // NEUE ANIMATION:
+        PauseTransition pause = new PauseTransition(Duration.millis(100));
+        pause.play();
 
-            updateUI();
-            checkGoalReached();
+        updateUI();
+        checkGoalReached();
+      });
 
-        });
-
-        VBox layout = new VBox(20);
+      VBox layout = new VBox(20);  // ← Abstand zwischen Elementen
+      layout.setStyle("-fx-padding: 30;");  // ← Innen-Rand
+      layout.setAlignment(Pos.TOP_CENTER);  // ← Oben zentriert
         layout.getChildren().addAll(
                 dateLabel,
                 title,
@@ -134,15 +140,23 @@ public class WaterTracker extends Application {
         stage.show();
     }
 
-    private void updateUI() {
-        bar.setProgress((double) currentWater / dailyGoal);
+  private void updateUI() {
+    bar.setProgress((double) currentWater / dailyGoal);
+    int rest = dailyGoal - currentWater;
 
-        int rest = dailyGoal - currentWater;
+    // ÄNDERE DIESE ZEILE:
+    status.setText(
+        "Getrunken: " + currentWater + " ml\nNoch: " + rest + " ml"
+    );
 
-        status.setText(
-                "Getrunken: " + currentWater + " ml\nNoch: " + rest + " ml"
-        );
-    }
+    // ZU DIESER:
+    status.setText(
+        String.format("%.1f L von %.1f L\n%d ml verbleibend",
+            currentWater / 1000.0,
+            dailyGoal / 1000.0,
+            rest)
+    );
+  }
 
     private void checkGoalReached() {
         if (currentWater >= dailyGoal) {
