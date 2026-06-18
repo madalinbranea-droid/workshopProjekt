@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -117,6 +118,12 @@ public class WaterTracker extends Application {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 450, 500);
+        
+        // Responsive Anpassungen bei Größenänderung
+        scene.widthProperty().addListener((obs, oldVal, newVal) -> {
+            updateResponsiveStyles(layout, newVal.doubleValue());
+        });
+
         try {
             // Versuche erst den absoluten Pfad (Standard für Maven/Resources)
             java.net.URL styleSheet = getClass().getResource("/org/example/style.css");
@@ -138,7 +145,36 @@ public class WaterTracker extends Application {
         stage.setScene(scene);
         stage.setTitle("Wasser Tracker");
         stage.show();
+
+        // Initialer Aufruf für korrekte Größen
+        updateResponsiveStyles(layout, scene.getWidth());
     }
+
+  private void updateResponsiveStyles(VBox layout, double width) {
+      if (width > 800) {
+          layout.setStyle("-fx-padding: 60; -fx-spacing: 40;");
+          Node title = layout.lookup(".title");
+          if (title != null) title.setStyle("-fx-font-size: 48px;");
+          
+          Node statusLabel = layout.lookup(".status-label");
+          if (statusLabel != null) statusLabel.setStyle("-fx-font-size: 24px;");
+          
+          layout.lookupAll(".button").forEach(node -> {
+              node.setStyle("-fx-font-size: 18px; -fx-padding: 15 40;");
+          });
+      } else {
+          layout.setStyle("-fx-padding: 30; -fx-spacing: 20;");
+          Node title = layout.lookup(".title");
+          if (title != null) title.setStyle(""); 
+          
+          Node statusLabel = layout.lookup(".status-label");
+          if (statusLabel != null) statusLabel.setStyle("");
+          
+          layout.lookupAll(".button").forEach(node -> {
+              node.setStyle("");
+          });
+      }
+  }
 
   private void updateUI() {
     bar.setProgress((double) currentWater / dailyGoal);
