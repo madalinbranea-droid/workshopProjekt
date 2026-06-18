@@ -1,0 +1,47 @@
+.root {
+    -fx-background-color: #f0f8ff;
+    -fx-padding: 20;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0077be;
+}
+
+.button {
+    -fx-background-color: #0077be;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #005f99;
+}
+
+.text-field {
+    -fx-padding: 8;
+    -fx-background-radius: 5;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+}
+
+.progress-bar {
+    -fx-accent: #0077be;
+}
+
+.progress-bar .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 5;
+}
