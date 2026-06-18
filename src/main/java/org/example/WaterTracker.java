@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
@@ -21,15 +24,28 @@ public class WaterTracker extends Application {
     public void start(Stage stage) {
         Label title = new Label("Wasser Tracker 🚰");
         title.getStyleClass().add("title");
+        
+        Label goalLabel = new Label("Tagesziel:");
+        goalLabel.setStyle("-fx-font-weight: bold;");
 
         goalInput = new TextField();
-        goalInput.setPromptText("Ziel in ml");
+        goalInput.setPromptText("ml");
         goalInput.setText(dailyGoal + "");
+        goalInput.setPrefWidth(100);
 
-        Button saveGoal = new Button("Ziel setzen");
-        Button addWater = new Button("+250 ml");
+        Button saveGoal = new Button("Setzen");
+        saveGoal.getStyleClass().add("button");
 
-        Button resetButton = new Button("Reset");
+        HBox goalBox = new HBox(10, goalLabel, goalInput, saveGoal);
+        goalBox.setAlignment(Pos.CENTER);
+
+        Button addWater = new Button("Wasser trinken (+250 ml)");
+        addWater.setMaxWidth(Double.MAX_VALUE);
+        addWater.getStyleClass().add("button");
+
+        Button resetButton = new Button("Tag zurücksetzen");
+        resetButton.getStyleClass().add("reset-button");
+        resetButton.setMaxWidth(Double.MAX_VALUE);
 
         resetButton.setOnAction(e -> {
             currentWater = 0;
@@ -37,16 +53,22 @@ public class WaterTracker extends Application {
         });
 
         bar = new ProgressBar(0);
-        bar.setPrefWidth(300);
+        bar.setMaxWidth(Double.MAX_VALUE);
 
         status = new Label();
+        status.getStyleClass().add("status-label");
 
         updateUI();
 
         saveGoal.setOnAction(e -> {
-            if (!goalInput.getText().isEmpty()) {
-                dailyGoal = Integer.parseInt(goalInput.getText());
-                updateUI();
+            try {
+                if (!goalInput.getText().isEmpty()) {
+                    dailyGoal = Integer.parseInt(goalInput.getText());
+                    updateUI();
+                }
+            } catch (NumberFormatException ex) {
+                Alert error = new Alert(Alert.AlertType.ERROR, "Bitte eine gültige Zahl eingeben.");
+                error.show();
             }
         });
 
@@ -62,21 +84,23 @@ public class WaterTracker extends Application {
 
         });
 
-        VBox layout = new VBox(15);
+        VBox layout = new VBox(20);
         layout.getChildren().addAll(
                 title,
-                goalInput,
-                saveGoal,
-                bar,
+                goalBox,
+                new Separator(),
                 status,
+                bar,
                 addWater,
+                new Region(), // Spacer
                 resetButton
         );
+        VBox.setVgrow(layout.getChildren().get(6), Priority.ALWAYS);
 
 
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 400, 300);
+        Scene scene = new Scene(layout, 450, 500);
         try {
             // Versuche erst den absoluten Pfad (Standard für Maven/Resources)
             java.net.URL styleSheet = getClass().getResource("/org/example/style.css");

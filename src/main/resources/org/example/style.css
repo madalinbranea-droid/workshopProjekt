@@ -1,47 +1,84 @@
 .root {
-    -fx-background-color: #f0f8ff;
-    -fx-padding: 20;
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #e3f2fd);
+    -fx-padding: 30;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #2c3e50;
 }
 
 .title {
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0077be;
+    -fx-text-fill: #1976d2;
+    -fx-padding: 0 0 10 0;
+}
+
+.status-label {
+    -fx-font-size: 16px;
+    -fx-text-alignment: center;
+    -fx-padding: 10 0;
 }
 
 .button {
-    -fx-background-color: #0077be;
+    -fx-background-color: #2196f3;
     -fx-text-fill: white;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-background-radius: 5;
+    -fx-padding: 12 24;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
 }
 
 .button:hover {
-    -fx-background-color: #005f99;
+    -fx-background-color: #1e88e5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 3);
+}
+
+.button:pressed {
+    -fx-background-color: #1976d2;
+}
+
+.reset-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #757575;
+    -fx-border-color: #bdbdbd;
+    -fx-border-radius: 25;
+    -fx-border-width: 1;
+}
+
+.reset-button:hover {
+    -fx-background-color: #eeeeee;
+    -fx-text-fill: #d32f2f;
+    -fx-border-color: #d32f2f;
 }
 
 .text-field {
-    -fx-padding: 8;
-    -fx-background-radius: 5;
-    -fx-border-color: #cccccc;
-    -fx-border-radius: 5;
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #bbdefb;
+    -fx-border-radius: 20;
+    -fx-padding: 10 15;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2196f3;
+    -fx-border-width: 2;
 }
 
 .progress-bar {
-    -fx-accent: #0077be;
+    -fx-pref-height: 20;
 }
 
 .progress-bar .track {
-    -fx-background-color: #e0e0e0;
-    -fx-background-radius: 5;
+    -fx-background-color: #e1f5fe;
+    -fx-background-radius: 10;
 }
 
 .progress-bar .bar {
-    -fx-background-radius: 5;
+    -fx-background-color: linear-gradient(to right, #4fc3f7, #2196f3);
+    -fx-background-radius: 10;
 }
