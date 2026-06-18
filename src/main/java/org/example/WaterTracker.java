@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 public class WaterTracker extends Application {
 
     int currentWater = 0;
@@ -25,6 +26,13 @@ public class WaterTracker extends Application {
 
         Button saveGoal = new Button("Ziel setzen");
         Button addWater = new Button("+250 ml");
+
+        Button resetButton = new Button("Reset");
+
+        resetButton.setOnAction(e -> {
+            currentWater = 0;
+            updateUI();
+        });
 
         bar = new ProgressBar(0);
         bar.setPrefWidth(300);
@@ -57,8 +65,10 @@ public class WaterTracker extends Application {
                 saveGoal,
                 bar,
                 status,
-                addWater
+                addWater,
+                resetButton
         );
+
 
         layout.setAlignment(Pos.CENTER);
 
